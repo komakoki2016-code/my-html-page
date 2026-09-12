@@ -1,0 +1,682 @@
+<title>館山・南房総 旅のしおり</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper: #f3ead9;
+    --paper-deep: #e9dcc0;
+    --paper-card: #faf5e9;
+    --ink: #2b2520;
+    --ink-soft: #6e6252;
+    --sea: #2f5566;
+    --sea-deep: #1f3c48;
+    --sea-soft: #7fa3ac;
+    --marigold: #bd7328;
+    --marigold-deep: #96591c;
+    --marigold-soft: #f1dcb3;
+    --line: #d6c6a1;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 15% -10%, #fbf3e2 0%, transparent 60%),
+      var(--paper);
+    color:var(--ink);
+    font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;
+    font-feature-settings:"palt";
+    line-height:1.7;
+  }
+
+  h1,h2,h3{
+    font-family:"Shippori Mincho B1","Hiragino Mincho ProN",serif;
+    text-wrap:balance;
+    margin:0;
+  }
+
+  .wrap{
+    max-width:840px;
+    margin:0 auto;
+    padding:56px 28px 96px;
+  }
+
+  /* ---------- Cover ---------- */
+  .cover{
+    text-align:center;
+    padding-bottom:40px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:44px;
+  }
+  .cover .eyebrow{
+    font-size:.78rem;
+    letter-spacing:.28em;
+    color:var(--sea);
+    font-weight:700;
+  }
+  .cover h1{
+    font-size:clamp(2rem, 5vw, 2.6rem);
+    font-weight:800;
+    color:var(--sea-deep);
+    margin-top:14px;
+    letter-spacing:.02em;
+  }
+  .cover .dates{
+    margin-top:10px;
+    font-size:1.05rem;
+    color:var(--ink-soft);
+    font-weight:500;
+  }
+  .cover .dates strong{ color:var(--marigold-deep); }
+
+  .summary-row{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:14px;
+    margin-top:32px;
+  }
+  .summary-card{
+    background:var(--paper-card);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:16px 14px;
+    text-align:left;
+  }
+  .summary-card .label{
+    font-size:.72rem;
+    letter-spacing:.14em;
+    color:var(--sea);
+    font-weight:700;
+  }
+  .summary-card .value{
+    margin-top:6px;
+    font-size:.95rem;
+    font-weight:500;
+  }
+  .summary-card .sub{
+    margin-top:2px;
+    font-size:.82rem;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- Day sections ---------- */
+  .day-header{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:16px;
+    flex-wrap:wrap;
+  }
+  .day-badge{
+    font-family:"Shippori Mincho B1",serif;
+    font-size:1.9rem;
+    font-weight:800;
+    color:var(--paper-card);
+    background:var(--sea-deep);
+    padding:4px 18px;
+    border-radius:2px;
+    letter-spacing:.04em;
+  }
+  .day-header .day-date{
+    font-size:1.05rem;
+    color:var(--ink-soft);
+    font-weight:500;
+  }
+  .day-header .day-theme{
+    margin-left:auto;
+    font-size:.85rem;
+    color:var(--marigold-deep);
+    font-weight:700;
+    background:var(--marigold-soft);
+    padding:3px 12px;
+    border-radius:99px;
+    white-space:nowrap;
+  }
+
+  .maps-link{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    margin-bottom:24px;
+    font-size:.85rem;
+    font-weight:700;
+    color:var(--sea-deep);
+    background:var(--paper-card);
+    border:1px solid var(--sea-soft);
+    padding:8px 16px;
+    border-radius:99px;
+    text-decoration:none;
+    transition:background .15s, color .15s;
+  }
+  .maps-link:hover{ background:var(--sea-deep); color:var(--paper-card); }
+  .maps-link:focus-visible{ outline:2px solid var(--marigold); outline-offset:2px; }
+  .maps-link .arrow{ font-size:1em; transform:translateY(-1px); }
+
+  /* ---------- Timeline (grid-based: time | dot | body) ---------- */
+  .timeline{
+    position:relative;
+    margin:0 0 20px 0;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left:90px;
+    top:8px;
+    bottom:8px;
+    width:2px;
+    background:var(--line);
+  }
+  .stop{
+    display:grid;
+    grid-template-columns:64px 24px 1fr;
+    column-gap:14px;
+    position:relative;
+    padding-bottom:28px;
+  }
+  .stop:last-child{ padding-bottom:0; }
+  .stop .time{
+    grid-column:1;
+    text-align:right;
+    padding-top:3px;
+    font-variant-numeric:tabular-nums;
+    font-weight:700;
+    font-size:.86rem;
+    line-height:1.4;
+    color:var(--sea-deep);
+  }
+  .stop .dot{
+    grid-column:2;
+    justify-self:center;
+    align-self:start;
+    margin-top:6px;
+    width:11px;
+    height:11px;
+    border-radius:50%;
+    background:var(--paper-card);
+    border:2px solid var(--sea);
+    position:relative;
+    z-index:1;
+  }
+  .stop.highlight .dot{
+    background:var(--marigold);
+    border-color:var(--marigold-deep);
+    width:14px;
+    height:14px;
+    margin-top:4px;
+  }
+  .stop .stop-body{ grid-column:3; }
+  .stop .stop-title{
+    font-weight:700;
+    font-size:1.02rem;
+  }
+  .stop.highlight .stop-title{ color:var(--marigold-deep); }
+  .stop .stop-note{
+    margin-top:3px;
+    font-size:.88rem;
+    color:var(--ink-soft);
+  }
+  .stop .stop-note .tag{
+    display:inline-block;
+    font-size:.72rem;
+    font-weight:700;
+    color:var(--sea-deep);
+    background:var(--paper-deep);
+    border-radius:3px;
+    padding:1px 7px;
+    margin-right:6px;
+  }
+
+  .callout{
+    background:var(--marigold-soft);
+    border:1px solid #e0bd82;
+    border-radius:4px;
+    padding:16px 20px;
+    margin:12px 0 52px 0;
+    font-size:.9rem;
+  }
+  .callout .callout-title{
+    font-weight:700;
+    color:var(--marigold-deep);
+    font-size:.8rem;
+    letter-spacing:.08em;
+    margin-bottom:8px;
+  }
+  .callout ul{ margin:0; padding-left:1.2em; }
+  .callout li{ margin-bottom:4px; }
+  .callout li:last-child{ margin-bottom:0; }
+
+  /* ---------- Section heading (generic) ---------- */
+  .section-heading{
+    font-size:1.3rem;
+    font-weight:700;
+    color:var(--sea-deep);
+    margin-bottom:18px;
+    padding-bottom:8px;
+    border-bottom:2px solid var(--sea-deep);
+    display:inline-block;
+  }
+  .section-block{ margin-bottom:52px; }
+
+  /* ---------- Cost ledger ---------- */
+  .ledger{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.95rem;
+  }
+  .ledger td{
+    padding:11px 4px;
+    border-bottom:1px solid var(--line);
+  }
+  .ledger td:last-child{
+    text-align:right;
+    font-variant-numeric:tabular-nums;
+    font-weight:500;
+    white-space:nowrap;
+    padding-left:16px;
+  }
+  .ledger .item-sub{
+    display:block;
+    font-size:.78rem;
+    color:var(--ink-soft);
+    margin-top:2px;
+  }
+  .ledger .total-row td{
+    border-bottom:none;
+    border-top:2px solid var(--sea-deep);
+    font-weight:700;
+    font-size:1.08rem;
+    padding-top:14px;
+  }
+  .ledger .total-row td:last-child{ color:var(--marigold-deep); }
+  .per-person{
+    margin-top:10px;
+    text-align:right;
+    font-size:.88rem;
+    color:var(--ink-soft);
+  }
+  .per-person strong{
+    color:var(--sea-deep);
+    font-variant-numeric:tabular-nums;
+  }
+  .cost-footnote{
+    margin-top:14px;
+    font-size:.8rem;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- Reference grid ---------- */
+  .ref-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+  .ref-card{
+    background:var(--paper-card);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:13px 16px;
+  }
+  .ref-card .ref-name{
+    font-weight:700;
+    font-size:.92rem;
+  }
+  .ref-card .ref-detail{
+    margin-top:4px;
+    font-size:.8rem;
+    color:var(--ink-soft);
+  }
+  .ref-card .ref-detail div{ margin-top:1px; }
+
+  footer{
+    margin-top:60px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-size:.78rem;
+    color:var(--ink-soft);
+    text-align:center;
+  }
+
+  @media (max-width:560px){
+    .summary-row{ grid-template-columns:1fr; }
+    .ref-grid{ grid-template-columns:1fr; }
+    .timeline::before{ left:69px; }
+    .stop{ grid-template-columns:50px 18px 1fr; column-gap:10px; }
+    .stop .time{ font-size:.78rem; }
+    .day-header{ gap:10px; }
+    .day-header .day-theme{ margin-left:0; }
+  }
+</style>
+
+<div class="wrap">
+
+  <section class="cover">
+    <div class="eyebrow">TRAVEL ITINERARY</div>
+    <h1>館山・南房総 旅のしおり</h1>
+    <div class="dates">2026年9月13日(日) 〜 9月14日(月)　<strong>1泊2日</strong></div>
+
+    <div class="summary-row">
+      <div class="summary-card">
+        <div class="label">宿泊</div>
+        <div class="value">New WestPeninsula Hotel</div>
+        <div class="sub">館山市波左間588／1泊 24,800円</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">ルート</div>
+        <div class="value">圏央道 → 東京湾アクアライン</div>
+        <div class="sub">相模原愛川IC 〜 君津・富浦IC</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DAY 1 ============ -->
+  <section class="section-block">
+    <div class="day-header">
+      <span class="day-badge">1</span>
+      <span class="day-date">9/13（日）八王子 → 館山</span>
+      <span class="day-theme">牧場と夕暮れの海辺へ</span>
+    </div>
+
+    <a class="maps-link" target="_blank" rel="noopener"
+       href="https://www.google.com/maps/dir/?api=1&origin=にこにこレンタカー東楢原店&destination=New+WestPeninsula+Hotel&waypoints=橋本駅|海ほたるパーキングエリア|マザー牧場|道の駅グリーンファーム館山&travelmode=driving">
+      1日目のルートをGoogleマップで開く <span class="arrow">↗</span>
+    </a>
+
+    <div class="timeline">
+      <div class="stop">
+        <div class="time">8:00</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">にこにこレンタカー 東楢原店 で出発</div>
+          <div class="stop-note">アクア（2021〜22年式）。ここから下道で橋本へ</div>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">9:15</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">橋本でのんちゃんをピックアップ</div>
+          <div class="stop-note">保土ヶ谷バイパス経由で横浜町田ICへ（約20分目安）</div>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">9:35<br>頃</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">保土ヶ谷バイパスから首都高速へ</div>
+          <div class="stop-note">首都高速神奈川3号狩場線→湾岸線経由でアクアラインへ（Googleマップの現状の最速ルート）</div>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">10:45<br>―10:55</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">川崎浮島JCT通過、アクアラインへ</div>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">11:00<br>―11:30</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">海ほたる 立ち寄り</div>
+          <div class="stop-note">アクアライン本線上のPA。休憩・軽い散策</div>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">11:50<br>頃</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">君津スマートIC 下車</div>
+          <div class="stop-note">館山自動車道より、下道（県道163号線・鹿野山方面）へ</div>
+        </div>
+      </div>
+      <div class="stop highlight">
+        <div class="time">12:05<br>―14:00</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">マザー牧場</div>
+          <div class="stop-note"><span class="tag">昼食</span>海鮮ではなく牧場グルメの想定。1人2,500円目安。滞在 約2時間</div>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">14:40<br>―15:20</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">道の駅 グリーンファーム館山</div>
+          <div class="stop-note">館山市稲274／富浦ICから車で約15分。お土産・軽い休憩</div>
+        </div>
+      </div>
+      <div class="stop highlight">
+        <div class="time">16:00<br>頃</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">ホテル到着・チェックイン</div>
+          <div class="stop-note">New WestPeninsula Hotel（波左間588）</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">1日目の確認事項</div>
+      <ul>
+        <li>橋本から先はGoogleマップの現状の最速ルートに合わせ、保土ヶ谷バイパス→首都高速（神奈川3号狩場線・湾岸線）経由でアクアラインへ向かう想定。実際の経路は当日の交通状況で変わる可能性がある。</li>
+        <li>9/13(日)のアクアライン通過は11時台（下り線）。下り線の7〜24時は土日祝でも800円固定の帯なので、時間帯変動の影響は受けない。</li>
+        <li>マザー牧場→グリーンファーム館山はナビ任せだと竹岡〜那古間で富津館山道路（有料）に誘導されることがある。下道（内房なぎさライン）で行く想定なので、この区間だけカーナビを「高速道路を使わない」設定にしておくと安心（料金計算もこの前提）。</li>
+        <li>チェックイン(15:00〜)にはほぼ間に合う想定（多少前後する可能性あり）。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ DAY 2 ============ -->
+  <section class="section-block">
+    <div class="day-header">
+      <span class="day-badge">2</span>
+      <span class="day-date">9/14（月）館山 → 橋本</span>
+      <span class="day-theme">灯台・砂州・隠れ家カフェ・夕焼けの桟橋</span>
+    </div>
+
+    <a class="maps-link" target="_blank" rel="noopener"
+       href="https://www.google.com/maps/dir/?api=1&origin=New+WestPeninsula+Hotel&destination=橋本駅&waypoints=洲崎灯台|漁港食堂だいぼ|沖ノ島公園|渚の駅たてやま|grass-B|岡本桟橋&travelmode=driving">
+      2日目のルートをGoogleマップで開く <span class="arrow">↗</span>
+    </a>
+
+    <div class="timeline">
+      <div class="stop">
+        <div class="time">9:30</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">ホテル チェックアウト</div>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">9:45<br>―10:15</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">洲崎灯台・マーガレット岬</div>
+          <div class="stop-note">房総フラワーライン起点。国登録有形文化財の灯台と海の眺め</div>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">10:15<br>―11:00</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">房総フラワーラインをドライブ</div>
+          <div class="stop-note">洲崎から伊戸方面へ海沿いを北上</div>
+        </div>
+      </div>
+      <div class="stop highlight">
+        <div class="time">11:00<br>―12:15</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">漁港食堂だいぼ</div>
+          <div class="stop-note"><span class="tag">海鮮ランチ</span>館山市伊戸963-1／定休：火曜（9/14は営業）。1人2,500円目安</div>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">12:45<br>―13:15</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">沖ノ島公園</div>
+          <div class="stop-note">砂州でつながる無人島。午前〜昼の澄んだ海が見頃</div>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">13:15<br>―14:15</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">みなとオアシス"渚の駅"たてやま</div>
+          <div class="stop-note">展望デッキ・さかなクンギャラリーなど</div>
+        </div>
+      </div>
+      <div class="stop highlight">
+        <div class="time">14:45<br>―16:00</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">grass-B（カフェ）</div>
+          <div class="stop-note"><span class="tag">カフェ</span>館山市岡田527／山の上の隠れ家。定休：木・金曜、第2・4水曜（9/14は営業）</div>
+        </div>
+      </div>
+      <div class="stop highlight">
+        <div class="time">16:50<br>―17:45</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">岡本桟橋（原岡桟橋）</div>
+          <div class="stop-note">南房総市富浦町原岡／富浦ICより車で約5分。夕暮れ時に富士山のシルエットが海に映る、大正時代からの木造桟橋</div>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">17:50</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">富浦ICから帰路</div>
+          <div class="stop-note">富津館山道路・館山自動車道 → 東京湾アクアライン（平日料金）→ 首都高速湾岸線・神奈川3号狩場線 → 保土ヶ谷バイパス → 橋本</div>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">20:00<br>頃</div>
+        <div class="dot"></div>
+        <div class="stop-body">
+          <div class="stop-title">橋本 到着目安</div>
+          <div class="stop-note">23:50到着予定に対して約4時間の余裕あり。帰路で夕食を挟める</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">2日目の確認事項</div>
+      <ul>
+        <li>寅丸市場・SEA DAYS・CAFE TSUMUGIは月曜定休の可能性が高いため候補から除外済み。</li>
+        <li>かなり盛りだくさんの行程。押した場合は grass-B か渚の駅たてやまの滞在時間を短縮して調整するのが現実的。</li>
+        <li>岡本桟橋は日没（9月中旬は17:45頃）に合わせた時間設定。道路混雑で多少前後する可能性あり。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ COST ============ -->
+  <section class="section-block">
+    <h2 class="section-heading">総額見積もり（2人分）</h2>
+    <table class="ledger">
+      <tr>
+        <td>宿泊費<span class="item-sub">2人・1泊 24,800円 − アプリポイント8,000円</span></td>
+        <td>16,800円</td>
+      </tr>
+      <tr>
+        <td>レンタカー代<span class="item-sub">48時間・保険込</span></td>
+        <td>13,400円</td>
+      </tr>
+      <tr>
+        <td>高速料金<span class="item-sub">往路：保土ヶ谷⇔木更津金田 2,100円（横浜新道320＋首都高速980＋アクアライン800）＋ 木更津金田→君津スマートIC 600円 ＝ 2,700円<br>復路：富浦→木更津金田 1,860円 ＋ 木更津金田⇔保土ヶ谷 2,100円 ＝ 3,960円（ETC想定）</span></td>
+        <td>6,660円</td>
+      </tr>
+      <tr>
+        <td>ガソリン代<span class="item-sub">総走行距離約300km／実燃費22km/L／八王子で給油160円/L</span></td>
+        <td>2,200円</td>
+      </tr>
+      <tr>
+        <td>昼食代<span class="item-sub">1日目・2日目とも1人2,500円 × 2人 × 2日</span></td>
+        <td>10,000円</td>
+      </tr>
+      <tr>
+        <td>2日目夜ご飯代<span class="item-sub">1人1,500円 × 2人</span></td>
+        <td>3,000円</td>
+      </tr>
+      <tr>
+        <td>2日目カフェ代（grass-B）<span class="item-sub">1人1,000円 × 2人</span></td>
+        <td>2,000円</td>
+      </tr>
+      <tr>
+        <td>マザー牧場 入園料<span class="item-sub">大人1,800円 × 2人</span></td>
+        <td>3,600円</td>
+      </tr>
+      <tr class="total-row">
+        <td>合計</td>
+        <td>57,660円</td>
+      </tr>
+    </table>
+    <div class="per-person">1人あたり <strong>約28,800円</strong></div>
+    <div class="cost-footnote">※園内アトラクション・体験チケット、お土産代は別途。高速料金はGoogleマップが実際に案内する経路（保土ヶ谷バイパス→首都高速神奈川3号狩場線→首都高速湾岸線→アクアライン）に基づき、kosoku.jpの区間別ETC料金を積み上げて算出。アクアラインは9/13(日)11時台＝下り線800円、9/14(月)は平日固定800円（いずれも時間帯変動の影響を受けない帯）。実際の経路は当日の交通状況で変わり得るため、最終的にはETC利用時の実額をご確認ください。</div>
+  </section>
+
+  <!-- ============ REFERENCE ============ -->
+  <section class="section-block">
+    <h2 class="section-heading">スポット情報</h2>
+    <div class="ref-grid">
+      <div class="ref-card">
+        <div class="ref-name">New WestPeninsula Hotel</div>
+        <div class="ref-detail">
+          <div>館山市波左間588</div>
+          <div>チェックイン 15:00〜</div>
+        </div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-name">マザー牧場</div>
+        <div class="ref-detail">
+          <div>富津市田倉940-3</div>
+          <div>君津ICより下道 約20〜30分</div>
+        </div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-name">道の駅 グリーンファーム館山</div>
+        <div class="ref-detail">
+          <div>館山市稲274</div>
+          <div>富浦ICより車で約15分</div>
+        </div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-name">漁港食堂だいぼ</div>
+        <div class="ref-detail">
+          <div>館山市伊戸963-1／0470-29-1221</div>
+          <div>平日11:00〜16:00(L.O.)・火曜定休</div>
+        </div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-name">grass-B</div>
+        <div class="ref-detail">
+          <div>館山市岡田527／0470-23-4980</div>
+          <div>12:00〜17:00・木金＋第2/4水曜定休</div>
+        </div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-name">岡本桟橋（原岡桟橋）</div>
+        <div class="ref-detail">
+          <div>南房総市富浦町原岡</div>
+          <div>富浦ICより車で約5分・無料駐車場あり</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <h2 class="section-heading">候補から外れたお店</h2>
+    <div class="callout" style="margin-bottom:0;">
+      <div class="callout-title">定休日のため今回は見送り</div>
+      <ul>
+        <li><strong>寅丸市場</strong>（館山市沼985-47）― 定休日：月・火曜（祝日は営業）。9/14(月)は定休日にあたる。</li>
+        <li><strong>SEA DAYS</strong>（館山市北条2307-52）― 定休日：月曜（祝日の場合は火曜）。9/14(月)は定休日の可能性が高い。</li>
+        <li><strong>CAFE TSUMUGI</strong>（館山市館山1560-16）― 定休日：日・月曜（他、不定休あり）。9/14(月)は定休日にあたる。</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>館山・南房総 旅のしおり ／ 2026.09.13–14</footer>
+
+</div>
